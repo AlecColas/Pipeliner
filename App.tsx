@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react'
+import React from 'react'
 import {
   SafeAreaView,
   ScrollView,
@@ -26,6 +26,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen'
+
 import Section from './src/components/Section'
 
 const App = () => {
