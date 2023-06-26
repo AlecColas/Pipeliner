@@ -9,71 +9,45 @@
  */
 
 import React from 'react'
+// import {useColorScheme} from 'react-native'
+
+import {NavigationContainer} from '@react-navigation/native'
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native'
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack'
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen'
+// import {Colors} from 'react-native/Libraries/NewAppScreen'
+import DetailsScreen from './src/screens/DetailsScreen'
+import HomeScreen from './src/screens/HomeScreen'
 
-import Section from './src/components/Section'
-
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark'
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  }
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  )
+type HomeStackParamList = {
+  Home: undefined // undefined because you aren't passing any params to the home screen
+  Details: undefined // undefined because you aren't passing any params to the home screen
 }
 
-const styles = StyleSheet.create({
-  highlight: {
-    fontWeight: '700',
-  },
-})
+export type HomeScreenNavigationProp = NativeStackNavigationProp<
+  HomeStackParamList,
+  'Home'
+>
+
+const Stack = createNativeStackNavigator<HomeStackParamList>()
+
+const App = () => {
+  // const isDarkMode = useColorScheme() === 'dark'
+
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // }
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
 export default App
