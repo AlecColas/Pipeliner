@@ -1,4 +1,4 @@
-export const DAYS = [
+export enum DAYS {
   'Sunday',
   'Monday',
   'Tuesday',
@@ -6,9 +6,9 @@ export const DAYS = [
   'Thursday',
   'Friday',
   'Saturday',
-]
+}
 
-export const MONTHS = [
+export enum MONTHS {
   'January',
   'February',
   'March',
@@ -21,4 +21,4 @@ export const MONTHS = [
   'October',
   'November',
   'December',
-]
+}
