@@ -1,79 +1,105 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import * as React from 'react'
 
-import React from 'react'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {NavigationContainer} from '@react-navigation/native'
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native'
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen'
+import DetailsScreen from './src/screens/DetailsScreen'
+import HomeScreen from './src/screens/HomeScreen'
+import SettingsScreen from './src/screens/SettingsScreen'
 
-import Section from './src/components/Section'
+type HomeStackParamList = {
+  Home: undefined // undefined because you aren't passing any params to the home screen
+  Details: undefined // undefined because you aren't passing any params to the home screen
+}
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark'
+export type HomeScreenNavigationProp = NativeStackNavigationProp<
+  HomeStackParamList,
+  'Home'
+>
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  }
+const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
+const HomeStackScreen = () => {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Details" component={DetailsScreen} />
+    </HomeStack.Navigator>
   )
 }
 
-const styles = StyleSheet.create({
-  highlight: {
-    fontWeight: '700',
-  },
-})
+type SettingsScreenNavigationProp = NativeStackNavigationProp<
+  HomeStackParamList,
+  'Home'
+>
 
-export default App
+export type SettingsScreenProps = {
+  navigation: SettingsScreenNavigationProp
+}
+
+type SettingStackParamList = {
+  Settings: undefined // undefined because you aren't passing any params to the home screen
+  Details: undefined // undefined because you aren't passing any params to the home screen
+}
+const SettingsStack = createNativeStackNavigator<SettingStackParamList>()
+
+const SettingsStackScreen = () => {
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      <SettingsStack.Screen name="Details" component={DetailsScreen} />
+    </SettingsStack.Navigator>
+  )
+}
+
+type BoardStackParamList = {
+  Settings: undefined // undefined because you aren't passing any params to the home screen
+  Details: undefined // undefined because you aren't passing any params to the home screen
+}
+
+const BoardStack = createNativeStackNavigator<BoardStackParamList>()
+
+const BoardStackScreen = () => {
+  return (
+    <BoardStack.Navigator>
+      <BoardStack.Screen name="Settings" component={SettingsScreen} />
+      <BoardStack.Screen name="Details" component={DetailsScreen} />
+    </BoardStack.Navigator>
+  )
+}
+
+const Tab = createBottomTabNavigator()
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName = 'ios-calendar'
+
+            if (route.name === 'HomeScreen') {
+              iconName = focused ? 'ios-calendar' : 'ios-calendar-outline'
+            } else if (route.name === 'SettingsScreen') {
+              iconName = focused ? 'ios-settings' : 'ios-settings-outline'
+            } else if (route.name === 'BoardScreen') {
+              iconName = focused ? 'ios-grid' : 'ios-grid-outline'
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}>
+        <Tab.Screen name="BoardScreen" component={BoardStackScreen} />
+        <Tab.Screen name="HomeScreen" component={HomeStackScreen} />
+        <Tab.Screen name="SettingsScreen" component={SettingsStackScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
+}
