@@ -26,7 +26,7 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
 const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator screenOptions={{headerShown: false}}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Screen name="Details" component={DetailsScreen} />
     </HomeStack.Navigator>
@@ -50,7 +50,7 @@ const SettingsStack = createNativeStackNavigator<SettingStackParamList>()
 
 const SettingsStackScreen = () => {
   return (
-    <SettingsStack.Navigator>
+    <SettingsStack.Navigator screenOptions={{headerShown: false}}>
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />
       <SettingsStack.Screen name="Details" component={DetailsScreen} />
     </SettingsStack.Navigator>
@@ -66,7 +66,7 @@ const BoardStack = createNativeStackNavigator<BoardStackParamList>()
 
 const BoardStackScreen = () => {
   return (
-    <BoardStack.Navigator>
+    <BoardStack.Navigator screenOptions={{headerShown: false}}>
       <BoardStack.Screen name="Settings" component={SettingsScreen} />
       <BoardStack.Screen name="Details" component={DetailsScreen} />
     </BoardStack.Navigator>
@@ -95,6 +95,7 @@ export default function App() {
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
+          // headerShown: false,
         })}>
         <Tab.Screen name="BoardScreen" component={BoardStackScreen} />
         <Tab.Screen name="HomeScreen" component={HomeStackScreen} />
